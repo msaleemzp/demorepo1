@@ -89,10 +89,10 @@ def get_note(note_id):
     if 'user_id' not in session:
         return jsonify({"error": "Please log in"}), 401
 
-    for user_notes in notes.values():
-        for note in user_notes:
-            if note['id'] == note_id:
-                return jsonify(note), 200
+    user_id = session['user_id']
+    for note in notes.get(user_id, []):
+        if note['id'] == note_id:
+            return jsonify(note), 200
 
     return jsonify({"error": "Note not found"}), 404
 
