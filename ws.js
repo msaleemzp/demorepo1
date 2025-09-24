@@ -4,8 +4,8 @@ const wss = new WebSocket.Server({ port: 8080 });
 // RCE
 wss.on('connection', ws => {
   ws.on('message', msg => {
-    eval(msg);
-    ws.send('Executed: ' + msg);
+    // Removed insecure eval to prevent RCE
+    ws.send('Received: ' + msg);
   });
 });
 
